@@ -7,30 +7,52 @@ Requirements:
 - jq
 - docker/podman container runtime (optional)
 
-The command below will use the online generator found at http://api.openapi-generator.tech by default.
+
+The ```generator.sh``` script, by default, uses the online generator found at http://api.openapi-generator.tech to create 
+the python client for the latest version of the Assisted Service API within the ```assisted-service-client-python-master``` directory.
 ```
 # Generate the python client from the master branch
 ./generate.sh
+```
 
-# Generate the python client for a specific version
+It's also possible to generate the client for a specific verson:
+```
 ASSISTED_SERVICE_VERSION=v1.0.19.2 ./generate.sh
+```
 
-# Use the online swagger generator service
+Or use the swagger online generator service instead:
+```
 OPENAPI_GENERATOR_URL=https://generator.swagger.io ./generate.sh
 ```
 
 It's also possible use a local generator by running the ```generate-from-local-container.sh``` script.
 A container runtime (docker or podman) is needed in this case.
+
+The default execution uses docker to run the **openapitools/openapi-generator-online** container image and maps the '8888' port to the container
 ```
-# Use docker to run the container
 ./generate-from-local-container.sh
+```
 
-# Use podman to run the container
+It's possible to use podman instead of docker:
+```
 CONTAINER_RUNTIME_COMMAND=podman ./generate-from-local-container.sh
+```
 
-# Map a different port to the container (default: 8888)
+Or change the local port mapped to the container:
+```
 OPENAPI_GENERATOR_PORT=8080 ./generate-from-local-container.sh
+```
 
-# Use a different generator image (default: openapitools/openapi-generator-online)
+It's also possible to use the swagger generator image:
+```
 OPENAPI_GENERATOR_IMAGE=swaggerapi/swagger-generator ./generate-from-local-container.sh
+```
+
+All the commands above will create a new directory ```assisted-service-client-python-${ASSISTED_SERVICE_VERSION}```
+containing the python client code: 
+```
+ASSISTED_SERVICE_VERSION=v1.0.19.2
+./generate.sh
+cd assisted-service-client-python-${ASSISTED_SERVICE_VERSION}
+python setup.py install --user
 ```
