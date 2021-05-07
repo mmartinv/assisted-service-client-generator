@@ -5,7 +5,7 @@ ASSISTED_SERVICE_VERSION="${ASSISTED_SERVICE_VERSION:-master}"
 CLIENT="${CLIENT:-python-legacy}"
 SPEC_FIELD=${SPEC_FIELD:-openAPIUrl}
 
-[ "${OPENAPI_GENERATOR_URL}" != "https://generator.swagger.io" ] || SPEC_FIELD="swaggerUrl" CLIENT="python"
+[ "${OPENAPI_GENERATOR_URL}" != "https://generator.swagger.io" ] || SPEC_FIELD="swaggerUrl" CLIENT="${CLIENT/-legacy/}"
 
 CLIENT_DIR="${CLIENT}-client"
 CLIENT_FILENAME="${CLIENT_DIR}.zip"
@@ -19,15 +19,10 @@ echo "Generating the Assisted Service API Python client"
 OPENAPI_DOWNLOAD_URL=$(curl -s -H "Content-Type: application/json" -X "POST" -d "{
   \"${SPEC_FIELD}\": \"https://raw.githubusercontent.com/openshift/assisted-service/${ASSISTED_SERVICE_VERSION}/swagger.yaml\",
   \"options\": {
-      \"generateSourceCodeOnly\": \"false\",
-      \"hideGenerationTimestamp\": \"true\",
-      \"library\": \"urllib3\",
       \"packageName\": \"assisted_service_client\",
       \"packageUrl\": \"https://github.com/openshift/assisted-service\",
       \"packageVersion\": \"${PACKAGE_VERSION}\",
-      \"projectName\": \"assisted-service-client\",
-      \"sortParamsByRequiredFlag\": \"true\",
-      \"useNose\": \"false\"
+      \"projectName\": \"assisted-service-client\"
   }
 }" "${OPENAPI_GENERATOR_URL}/api/gen/clients/${CLIENT}" | jq -r .link)
 
