@@ -9,7 +9,7 @@ Requirements:
 
 
 The ```generator.sh``` script, by default, uses the online generator found at http://api.openapi-generator.tech to create 
-the python client for the latest version of the Assisted Service API within the ```assisted-service-client-python-master``` directory.
+the python client for the latest version of the Assisted Service API within the ```assisted-service-client-python-legacy-master``` directory.
 ```
 ./generate.sh
 ```
