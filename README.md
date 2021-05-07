@@ -30,6 +30,16 @@ By default the python client is generated but it's also possible to generate any
 CLIENT=javascript ./generate.sh
 ```
 
+The full list of supported clients can be retrieved with the following command:
+```
+# for the OpenAPI generator
+curl -s http://api.openapi-generator.tech/api/gen/clients | jq -r '.[] | "\(.)"'
+
+
+# for the Swagger generator
+curl -s https://generator.swagger.io/api/gen/clients | jq -r '.[] | "\(.)"'
+```
+
 It's possible to run a local generator instead of using the online generator by running the ```generate-from-local-container.sh``` script.
 A container runtime (docker or podman) is needed in this case.
 
@@ -38,12 +48,12 @@ The default execution uses docker to run the **openapitools/openapi-generator-on
 ./generate-from-local-container.sh
 ```
 
-It's possible to use podman instead of docker:
+To use podman instead of docker:
 ```
 CONTAINER_RUNTIME_COMMAND=podman ./generate-from-local-container.sh
 ```
 
-Or change the local port mapped to the container:
+To change the local port mapped to the container:
 ```
 OPENAPI_GENERATOR_PORT=8080 ./generate-from-local-container.sh
 ```
@@ -61,4 +71,26 @@ CLIENT=python-legacy
 ./generate.sh
 cd assisted-service-client-${CLIENT}-${ASSISTED_SERVICE_VERSION}
 python setup.py install --user
+```
+
+To generate all the possible OpenAPI clients:
+```
+OPENAPI_CLIENTS_URL="http://api.openapi-generator.tech/api/gen/clients"
+for CLIENT in $(curl -s "${OPENAPI_CLIENTS_URL}" | jq -r '.[] | "\(.)"') ; do
+    CLIENT=${CLIENT} ./generate.sh;
+done
+```
+
+To generate all the possible Swagger clients:
+```
+OPENAPI_CLIENTS_URL="https://generator.swagger.io/api/gen/clients"
+for CLIENT in $(curl -s "${OPENAPI_CLIENTS_URL}" | jq -r '.[] | "\(.)"') ; do
+    OPENAPI_GENERATOR_URL="https://generator.swagger.io" CLIENT=${CLIENT} ./generate.sh;
+done
+```
+
+Using the local generator to do the same is slightly different:
+```
+OPENAPI_CLIENTS_URL="http://api.openapi-generator.tech/api/gen/clients"
+CLIENTS=$(curl -s "${OPENAPI_CLIENTS_URL}" | jq -r '.[] | "\(.)"') ./generate-from-local-container.sh
 ```
