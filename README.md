@@ -28,7 +28,7 @@ OPENAPI_GENERATOR_URL=https://generator.swagger.io ./generate.sh
 It's also possible use a local generator by running the ```generate-from-local-container.sh``` script.
 A container runtime (docker or podman) is needed in this case.
 
-The default execution uses docker to run the **openapitools/openapi-generator-online** container image and maps the '8888' port to the container
+The default execution uses docker to run the **openapitools/openapi-generator-online** container image and maps the **8888** port to the container
 ```
 ./generate-from-local-container.sh
 ```
