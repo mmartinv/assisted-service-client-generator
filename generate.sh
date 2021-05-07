@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -x -e
-
 OPENAPI_GENERATOR_URL="${OPENAPI_GENERATOR_URL:-http://api.openapi-generator.tech}"
 ASSISTED_SERVICE_VERSION="${ASSISTED_SERVICE_VERSION:-master}"
 CLIENT="${CLIENT:-python-legacy}"
@@ -12,7 +10,7 @@ SPEC_FIELD=${SPEC_FIELD:-openAPIUrl}
 CLIENT_DIR="${CLIENT}-client"
 CLIENT_FILENAME="${CLIENT_DIR}.zip"
 
-ASSISTED_SERVICE_DIR="assisted-service-client-python-${ASSISTED_SERVICE_VERSION/v/}"
+ASSISTED_SERVICE_DIR="assisted-service-client-${CLIENT}-${ASSISTED_SERVICE_VERSION/v/}"
 
 PACKAGE_VERSION=${ASSISTED_SERVICE_VERSION}
 [ "${PACKAGE_VERSION}" != "master" ] || PACKAGE_VERSION="0.0.0"
