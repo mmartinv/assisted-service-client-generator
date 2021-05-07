@@ -5,6 +5,7 @@ Scripts to generate the client code for the Assisted Service API (https://github
 Requirements:
 - curl
 - jq
+- unzip
 - docker/podman container runtime (optional)
 
 
