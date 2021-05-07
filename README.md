@@ -1,6 +1,6 @@
-## Assisted Installer API Python Client Generator
+## Assisted Installer API Client Generator
 
-Scripts to generate the python client for the Assisted Service API (https://github.com/openshift/assisted-service).
+Scripts to generate the client code for the Assisted Service API (https://github.com/openshift/assisted-service).
 
 Requirements:
 - curl
