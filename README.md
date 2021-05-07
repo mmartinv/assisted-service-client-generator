@@ -19,7 +19,7 @@ ASSISTED_SERVICE_VERSION=v1.0.19.2 ./generate.sh
 OPENAPI_GENERATOR_URL=https://generator.swagger.io ./generate.sh
 ```
 
-It's also possible use a local generator by running the "generate-from-local-container.sh" script.
+It's also possible use a local generator by running the ```generate-from-local-container.sh``` script.
 A container runtime (docker or podman) is needed in this case.
 ```
 # Use docker to run the container
